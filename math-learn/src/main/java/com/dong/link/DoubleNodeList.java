@@ -11,11 +11,6 @@ public class DoubleNodeList {
      */
 
 
-
-
-
-
-
     public static void main(String[] args) {
 
     }
