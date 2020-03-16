@@ -17,36 +17,42 @@ public class Test01 {
 
     public static void main(String[] args) {
 
-        ListNode listNode4 = new ListNode(4);
-        ListNode listNode3 = new ListNode(3);listNode3.next = listNode4;
-        ListNode listNode2 = new ListNode(2);listNode2.next = listNode3;
-        ListNode listNode1 = new ListNode(1);listNode1.next = listNode2;
+        Node node4 = new Node(4);
+        Node node3 = new Node(3);node3.next = node4;
+        Node node2 = new Node(2);node2.next = node3;
+        Node node1 = new Node(1);node1.next = node2;
+        deleteTargetNode(node3);
+        //头节点为默认初始值
+        Node next = node1;
+        //测试删除
+        for (int i = 0; i < 4  ; i++) {
+            if(i==0){
+                //默认node1为头节点
+                System.out.println("The value of first node is " + next.val);
+            }else{
+                next = next.next;
+                if (next == null){
+                    break;
+                }
+                System.out.println("第"+(i+1)+"节点值为："+ next.val);
+            }
+
+        }
 
     }
 
     /**
      * 删除指定的节点元素
-     * @param listNode
+     * @param Node
      */
-    public static void  deleteTargetNode(ListNode listNode){
+    public static void  deleteTargetNode(Node Node){
         //是末尾节点
-        if(listNode.next == null){
+        if(Node.next == null){
             return;
         }
-        //是头节点
-        listNode.val = listNode.next.val;
-        listNode.next = listNode.next.next;
+        //是非末尾节点
+        Node.val = Node.next.val;
+        Node.next = Node.next.next;
     }
 
-}
-
-//链表节点定义
-class ListNode {
-
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
 }

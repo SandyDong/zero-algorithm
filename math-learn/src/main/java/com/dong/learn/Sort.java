@@ -36,13 +36,14 @@ public class Sort {
     private static int[]  BubbleSort(int[] aa){
 
         if(aa != null){
-            for (int i = 0; i < aa.length ; i++) {
-                for (int j = i+1; j <aa.length ; j++) {
-                    if (aa[i]>aa[j]){
-                        int temp;
-                        temp = aa[i];
-                        aa[i] = aa[j];
-                        aa[j] = temp;
+            for (int i = 0; i < aa.length -1 ; i++) {
+                for (int j = 0; j <aa.length-i-1 ; j++) {
+                    //中间存储变量
+                    int temp = 0;
+                    if (aa[j]>aa[j+1]){
+                        temp = aa[j];
+                        aa[j] = aa[j+1];
+                        aa[j+1] = temp;
                     }
                 }    
             }
@@ -59,6 +60,7 @@ public class Sort {
 
         if(aa != null){
             for (int i = 0; i < aa.length ; i++) {
+                //每一轮都去比较,该参数与其它参数进行比较
                 for (int j = i+1; j <aa.length ; j++) {
                     if (aa[i]<aa[j]){
                         int temp;
@@ -67,6 +69,34 @@ public class Sort {
                         aa[j] = temp;
                     }
                 }
+            }
+        }
+        return aa;
+    }
+
+    /**
+     * 优化版本1  如果发现提前排好顺序了，可以提前终止程序的执行
+     */
+    private static int[] BubbleSortDesc1(int[] aa)throws Exception{
+        if (null == aa){
+            throw new Exception("当前数组输入的值为空!");
+        }
+        for (int i = 0; i < aa.length -1; i++) {
+            //定义一个是否已经排好序标识
+            boolean isSorted = true;
+            for (int j = 0; j <aa.length-1-i ; j++) {
+                int temp = 0;
+                if (aa[j]>aa[j+1]){
+                    temp = aa[j];
+                    aa[j] = aa[j+1];
+                    aa[j+1] = temp;
+                    //设置已经排好序标识
+                    isSorted = false;
+                }
+            }
+            if (isSorted){
+                //剩下比较轮次无需再比较
+                break;
             }
         }
         return aa;
