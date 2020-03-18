@@ -71,7 +71,7 @@ public class Test05 {
         if(countDay%5 == 4|| countDay%5 == 0 ){
             System.out.println("He is having a rest");
         }
-        if(countDay%5 >0 || countDay%5 <= 3){
+        if(countDay%5 >0 && countDay%5 <= 3){
             System.out.println("He is working");
         }
     }
