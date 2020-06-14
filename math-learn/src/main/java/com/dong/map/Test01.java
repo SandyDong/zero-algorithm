@@ -1,13 +1,14 @@
 package com.dong.map;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * hashmap测试
  */
 public class Test01 {
     public static void main(String[] args) {
-        HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+        Map<String, Object> stringObjectHashMap = new HashMap<String, Object>();
         stringObjectHashMap.put("aa",null);
         stringObjectHashMap.put("bb",null);
         stringObjectHashMap.put(null,"aa");

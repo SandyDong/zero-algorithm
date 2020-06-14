@@ -18,13 +18,12 @@ public class SynchronizedLock {
 
     public static void main(String[] args) {
         System.out.println("--------------测试锁的使用---------------");
-        SynchronizedLock synchronizedLock = new SynchronizedLock();
+        final SynchronizedLock synchronizedLock = new SynchronizedLock();
 //        synchronizedLock.sendSyncMessageA();
 
         for (int i = 0; i <20 ; i++) {
             //模拟多个线程操作
             new Runnable() {
-                @Override
                 public void run() {
                     synchronizedLock.sendSyncMessageA();
                 }
@@ -34,7 +33,6 @@ public class SynchronizedLock {
         for (int i = 0; i <20 ; i++) {
             //模拟多个线程操作
             new Runnable() {
-                @Override
                 public void run() {
                     synchronizedLock.sendSyncMessageA();
                 }
