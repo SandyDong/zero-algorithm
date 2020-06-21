@@ -1,6 +1,7 @@
 package com.dong.Lock;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
@@ -27,6 +28,8 @@ public class LockApi {
             i++;
             System.out.println("aaa");
         }while (i<3);
+
+        ReentrantLock reentrantLock = new ReentrantLock();
     }
 
 
