@@ -43,9 +43,17 @@ class MyThreadThree extends Thread {
     //定义一个成员变量
     private int count = 5;
 
-
-    @Override
+    //非安全写法
+    /*@Override
     public void run() {
+        super.run();
+        count--;
+        System.out.println(Thread.currentThread().getName() + "===>" + count);
+    }*/
+
+    //安全写法
+    @Override
+    public synchronized void run() {
         super.run();
         count--;
         System.out.println(Thread.currentThread().getName() + "===>" + count);
@@ -60,6 +68,13 @@ class MyThreadThree extends Thread {
  * CCC===>2
  * EEE===>0
  * DDD===>0
+ * <p>
+ * 分析线程安全原因：
+ * 在某些JVM中，i--的操作要分成如下3步：
+ * 1）取得原有i值。
+ * 2）计算i-1。
+ * 3）对i进行赋值。
+ * 在这3个步骤中，如果有多个线程同时访问，那么一定会出现非线程安全问题。
  */
 
 class MyThreadTwo extends Thread {
