@@ -27,6 +27,19 @@ public class TestFilter {
         testList.forEach(PersonDemo ->
                         System.out.println(PersonDemo.getName()+"====>"+PersonDemo.getAge())
         );
+        System.out.println("=============================================");
+
+        List<PersonDemo> testTempList = new ArrayList<PersonDemo>();
+
+        for (int i = 10; i < 12; i++) {
+            testTempList.add(new PersonDemo("wang"+i,i+20));
+        }
+        //通过stream()流进行过滤操作。
+        testTempList.stream().
+                filter(personDemo -> "wang10".equals(personDemo.getName())).
+                forEach(personDemo -> {
+            System.out.println(personDemo.getName()+"=="+personDemo.getAge());
+        });
     }
 }
 
