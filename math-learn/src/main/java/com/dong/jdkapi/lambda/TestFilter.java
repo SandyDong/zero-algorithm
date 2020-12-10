@@ -1,8 +1,6 @@
 package com.dong.jdkapi.lambda;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TestFilter {
@@ -65,26 +63,63 @@ public class TestFilter {
 //        testMiddList = testMiddList.stream().filter(personDemo -> "wang32".equals(personDemo)).collect(Collectors.toList());
 
         testMiddList.forEach(personDemo -> {
-            System.out.println(personDemo.getName()+"==="+personDemo.getAge());
+            System.out.println(personDemo.getName() + "===" + personDemo.getAge());
         });
         System.out.println("******************************迭代器遍历**********************************************");
 
         Iterator<PersonDemo> iterator = testMiddList.iterator();
-        while (iterator.hasNext()){
-            if(iterator.next().getName().equals("wang31")){
+        while (iterator.hasNext()) {
+            if (iterator.next().getName().equals("wang31")) {
                 iterator.remove();
             }
         }
 
         testMiddList.forEach(personDemo -> {
-            System.out.println(personDemo.getName()+"==="+personDemo.getAge());
+            System.out.println(personDemo.getName() + "===" + personDemo.getAge());
         });
 
+        long count = testMiddList.stream().count();
+        System.out.println(count);
 
      /*   testMiddList.stream().filter(personDemo ->
                 "wang30".equals(personDemo.getName()));*/
+        System.out.println("******************************lambda表达式新取值**********************************************");
+        //取出persondemo中的年龄值
+        List<Integer> ageList = testMiddList.stream().map(personDemo -> personDemo.getAge()).collect(Collectors.toList());
+        ageList.stream().forEach(age -> {
+            System.out.println("获取所有的用户年龄:" + age);
+        });
+        //对取出的值进行去重
+        List<Integer> ageDisList = testMiddList.stream().map(personDemo -> personDemo.getAge()).distinct().collect(Collectors.toList());
+        ageDisList.stream().forEach(age -> {
+            System.out.println("获取所有的用户年龄(去重后的年龄):" + age);
+        });
+        //list数据转换存到map数据结构中(key值为person中的name值,value存放的数据对象)
+        Map<String, PersonDemo> personDemoMap = testMiddList.stream().collect(Collectors.toMap(PersonDemo::getName, personDemo -> personDemo));
 
+        Iterator<PersonDemo> valuesIterator = personDemoMap.values().iterator();
+        while (valuesIterator.hasNext()) {
+            PersonDemo personDemo = valuesIterator.next();
+            System.out.println(personDemo.getName() + "===" + personDemo.getAge());
+        }
 
+        //list数据转换存到map数据结构中(key,value都为person对象中的属性值)
+        Map<String, Integer> personDataMap = testMiddList.stream().collect(Collectors.toMap(PersonDemo::getName, personDemo -> personDemo.getAge()));
+        Iterator<Integer> personDataIterator = personDataMap.values().iterator();
+        while (personDataIterator.hasNext()) {
+            Integer ageData = personDataIterator.next();
+            System.out.println(ageData);
+        }
+
+        //list数据转换存到map数据结构中(key为person对象中的属性值,value为person对象,如遇到值冲突，则取最新的值,可以避免值冲突的现象)
+        Map<String, PersonDemo> newPersonMap = testMiddList.stream().
+                collect(Collectors.toMap(PersonDemo::getName, personDemo -> personDemo, (oldValue, newValue) -> newValue));
+        //按照年龄值大小进行排序
+        testMiddList.sort((personDemo1, personDemo2) -> personDemo2.getAge().compareTo(personDemo1.getAge()));
+
+        testMiddList.forEach(personDemo -> {
+            System.out.println(personDemo.getName()+"===>"+personDemo.getAge());
+        });
     }
 }
 
@@ -92,9 +127,9 @@ class PersonDemo {
 
     private String name;
 
-    private int age;
+    private Integer age;
 
-    public PersonDemo(String name, int age) {
+    public PersonDemo(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
@@ -107,11 +142,11 @@ class PersonDemo {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 }
