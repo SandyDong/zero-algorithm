@@ -1,5 +1,7 @@
 package com.dong.link;
 
+import lombok.Data;
+
 /**
  * 单链表设置
  */
@@ -9,26 +11,13 @@ public class SingleNodeList {
 
     private Node   nodeHead;
 
-
+    @Data
     private class Node{
+
         private Object  objectData;//存放节点数据
+
         private Node  next;//存放下一个节点地址
 
-        public Object getObjectData() {
-            return objectData;
-        }
-
-        public void setObjectData(Object objectData) {
-            this.objectData = objectData;
-        }
-
-        public Node getNext() {
-            return next;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
-        }
     }
 
     public SingleNodeList(){

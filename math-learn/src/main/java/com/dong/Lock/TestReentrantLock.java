@@ -21,18 +21,29 @@ public class TestReentrantLock implements Runnable {
     private ReentrantLock reentrantLock = new ReentrantLock(true);
 
     public void get() {
+        //加锁后续加上try catch 处理异常,防止解锁失败的情况! 解锁方法需要放到finally中，解锁需要最终处理
         reentrantLock.lock();
-        System.out.println("进入 get()方法 " + Thread.currentThread().getName());
-        set();
-        System.out.println("离开 get()方法 " + Thread.currentThread().getName());
-        reentrantLock.unlock();
+        try {
+            System.out.println("进入 get()方法 " + Thread.currentThread().getName());
+            set();
+            System.out.println("离开 get()方法 " + Thread.currentThread().getName());
+        } catch (Exception e) {
+            System.out.println("获取值异常!");
+        } finally {
+            reentrantLock.unlock();
+        }
     }
 
     public void set() {
         reentrantLock.lock();
-        System.out.println("进入 set()方法 " + Thread.currentThread().getName());
-        System.out.println("离开 set()方法 " + Thread.currentThread().getName());
-        reentrantLock.unlock();
+        try {
+            System.out.println("进入 set()方法 " + Thread.currentThread().getName());
+            System.out.println("离开 set()方法 " + Thread.currentThread().getName());
+        } catch (Exception e) {
+            System.out.println("设置值异常!");
+        } finally {
+            reentrantLock.unlock();
+        }
     }
 
     @Override
